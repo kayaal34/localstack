@@ -82,8 +82,8 @@ def perform_dynamic_reference_lookup(
             secret_value = secretsmanager_client.get_secret_value(SecretId=secret_id, **kwargs)[
                 "SecretString"
             ]
-        except ClientError:
-            LOG.error("client error while trying to access key '%s': %s", secret_id)
+        except ClientError as e:
+            LOG.error("client error while trying to access key '%s': %s", secret_id, e)
             raise
 
         if json_key:
